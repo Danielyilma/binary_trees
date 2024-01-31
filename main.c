@@ -10,24 +10,24 @@
 int main(void)
 {
     binary_tree_t *root;
-    int balance;
+    binary_tree_t *sibling;
 
     root = binary_tree_node(NULL, 98);
     root->left = binary_tree_node(root, 12);
     root->right = binary_tree_node(root, 402);
     binary_tree_insert_right(root->left, 54);
     binary_tree_insert_right(root, 128);
-    binary_tree_insert_left(root, 45);
-    binary_tree_insert_right(root->left, 50);
-    binary_tree_insert_left(root->left->left, 10);
-    binary_tree_insert_left(root->left->left->left, 8);
-    binary_tree_print(root);
+    root->left->left = binary_tree_node(root->left, 10);
+    root->right->left = binary_tree_node(root->right, 10);
 
-    balance = binary_tree_balance(root);
-    printf("Balance of %d: %+d\n", root->n, balance);
-    balance = binary_tree_balance(root->right);
-    printf("Balance of %d: %+d\n", root->right->n, balance);
-    balance = binary_tree_balance(root->left->left->right);
-    printf("Balance of %d: %+d\n", root->left->left->right->n, balance);
+    binary_tree_print(root);
+    sibling = binary_tree_sibling(root->left);
+    printf("Sibling of %d: %d\n", root->left->n, sibling->n);
+    sibling = binary_tree_sibling(root->right->left);
+    printf("Sibling of %d: %d\n", root->right->left->n, sibling->n);
+    sibling = binary_tree_sibling(root->left->right);
+    printf("Sibling of %d: %d\n", root->left->right->n, sibling->n);
+    sibling = binary_tree_sibling(root);
+    printf("Sibling of %d: %p\n", root->n, (void *)sibling);
     return (0);
 }
